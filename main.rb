@@ -28,6 +28,8 @@ while input != 'X' do
     graphic.draw_vertical_segment(args)
   when 'H'
     graphic.draw_horizontal_segment(args)
+  when 'X'
+    puts "Bye!"
   else
     puts "ERROR: Command not found. Please try again."
   end
