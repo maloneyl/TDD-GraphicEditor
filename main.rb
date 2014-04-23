@@ -18,6 +18,8 @@ while input != 'X' do
       puts "ERROR: Your image must be sized between 1 column and 250 rows max. Please try again."
       next
     end
+  when 'C'
+    graphic.clear
   when 'L'
     graphic.colour_pixel(args)
   when 'S'

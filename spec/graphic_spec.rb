@@ -5,14 +5,14 @@ describe Graphic do
   describe '.new' do
     context 'when given the arguments "5 6"' do
       let(:graphic) { Graphic.new("5 6") }
-      subject { p graphic.grid }
+      subject { graphic.grid }
 
       it { should eql([%w(O O O O O)] * 6) }
     end
 
     context 'when given the arguments "3 4"' do
       let(:graphic) { Graphic.new("3 4") }
-      subject { p graphic.grid }
+      subject { graphic.grid }
 
       it { should eql([%w(O O O)] * 4) }
     end
@@ -52,6 +52,19 @@ describe Graphic do
     end
   end
 
+  describe '#clear' do
+    context 'when called after creating an 5x6 image and colouring the pixel(2, 3) with the colour A' do
+      let(:graphic) { Graphic.new("5 6") }
+
+      before do
+        graphic.colour_pixel("2 3 A")
+      end
+
+      subject { graphic.clear }
+      it { should eql([%w(O O O O O)] * 6) }
+    end
+  end
+
   describe '#show_current' do
     context 'when called after creating an 5x6 image and colouring the pixel(2, 3) with the colour A' do
       let(:graphic) { Graphic.new("5 6") }
@@ -74,7 +87,7 @@ describe Graphic do
   end
 
   describe '#fill_region' do
-    context 'when given the argument "3 3 J"' do
+    context 'when given the argument "3 3 J" and called after creating an 5x6 image and colouring the pixel(2, 3) with the colour A' do
       let(:graphic) { Graphic.new("5 6") }
 
       before do
@@ -102,7 +115,7 @@ describe Graphic do
       graphic.fill_region("3 3 J")
     end
 
-    context 'when given the argument "2 3 4 W"' do
+    context 'when given the argument "2 3 4 W" and called after creating an 5x6 image, colouring the pixel(2, 3) with the colour A, and filling the region pixel(3, 3) with the colour J' do
       before do
         graphic.draw_vertical_segment("2 3 4 W") # 1 2 3
       end
@@ -119,7 +132,7 @@ describe Graphic do
         )}
     end
 
-    context 'when given the argument "2 3 5 W"' do
+    context 'when given the argument "2 3 5 W" and called after creating an 5x6 image, colouring the pixel(2, 3) with the colour A, and filling the region pixel(3, 3) with the colour J' do
       before do
         graphic.draw_vertical_segment("2 3 5 W")
       end
@@ -145,7 +158,7 @@ describe Graphic do
       graphic.draw_vertical_segment("2 3 4 W")
     end
 
-    context 'when given the argument "3 4 2 Z"' do
+    context 'when given the argument "3 5 2 Z" and called after creating an 5x6 image, colouring the pixel(2, 3) with the colour A, filling the region pixel(3, 3) with the colour J, and drawing a vertical segment at (2, 3-4)' do
       before do
         graphic.draw_horizontal_segment("3 4 2 Z") # 2 3 1
       end
@@ -162,7 +175,7 @@ describe Graphic do
         )}
     end
 
-    context 'when given the argument "3 5 2 Z"' do
+    context 'when given the argument "3 5 2 Z" and called after creating an 5x6 image, colouring the pixel(2, 3) with the colour A, filling the region pixel(3, 3) with the colour J, and drawing a vertical segment at (2, 3-4)' do
       before do
         graphic.draw_horizontal_segment("3 5 2 Z")
       end

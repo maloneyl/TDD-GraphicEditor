@@ -4,10 +4,10 @@ class Graphic
 
   def initialize(size) # e.g. "5 6" where M = 5, N = 6
     size = size.split(" ").map(&:to_i)
-    cols = size[0]
-    rows = size[1]
-    raise ArgumentError.new("There must be at least 1 column and no more than 250 rows") if cols < 1 || rows > 250
-    @grid = Array.new(rows) { Array.new(cols, 'O') }
+    @cols = size[0]
+    @rows = size[1]
+    raise ArgumentError.new("There must be at least 1 column and no more than 250 rows") if @cols < 1 || @rows > 250
+    @grid = Array.new(@rows) { Array.new(@cols, 'O') }
   end
 
   def colour_pixel(pixel_and_colour) # e.g. "2 3 A" where X = 2, Y = 3, colour = A
@@ -17,6 +17,10 @@ class Graphic
     colour = pixel_and_colour[2]
 
     @grid[pixel_y][pixel_x] = colour
+  end
+
+  def clear
+    @grid = Array.new(@rows) { Array.new(@cols, 'O') }
   end
 
   def show_current
