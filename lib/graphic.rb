@@ -39,15 +39,15 @@ class Graphic
     fill(pixel_x, pixel_y, existing_colour, colour)
   end
 
-  def fill(x, y, existing, replacement)
-    return if @grid[y][x] != existing
-    return if @grid[y][x] == replacement
+  def fill(x, y, existing_colour, replacement_colour)
+    return if @grid[y][x] != existing_colour
+    return if @grid[y][x] == replacement_colour
 
-    @grid[y][x] = replacement
-    fill(x+1, y, existing, replacement) if x < @rows
-    fill(x-1, y, existing, replacement) if x > 0
-    fill(x, y+1, existing, replacement) if y < @cols
-    fill(x, y-1, existing, replacement) if y > 0
+    @grid[y][x] = replacement_colour
+    fill(x+1, y, existing_colour, replacement_colour) if x < @rows
+    fill(x-1, y, existing_colour, replacement_colour) if x > 0
+    fill(x, y+1, existing_colour, replacement_colour) if y < @cols
+    fill(x, y-1, existing_colour, replacement_colour) if y > 0
   end
 
   def draw_vertical_segment(pixels_and_colour) # e.g. "2 3 4 W" where X = 2, Y1 = 3, Y2 = 4, colour = W
