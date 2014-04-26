@@ -34,13 +34,20 @@ class Graphic
     pixel_x = pixel_and_colour[0].to_i - 1
     pixel_y = pixel_and_colour[1].to_i - 1
     colour = pixel_and_colour[2]
-    existing_colour_to_change = @grid[pixel_y][pixel_x]
+    existing_colour = @grid[pixel_y][pixel_x]
 
-    @grid.map! do |row|
-      row.map do |elem|
-        elem == existing_colour_to_change ? colour : elem
-      end
-    end
+    fill(pixel_x, pixel_y, existing_colour, colour)
+  end
+
+  def fill(x, y, existing, replacement)
+    return if @grid[y][x] != existing
+    return if @grid[y][x] == replacement
+
+    @grid[y][x] = replacement
+    fill(x+1, y, existing, replacement) if x < @rows
+    fill(x-1, y, existing, replacement) if x > 0
+    fill(x, y+1, existing, replacement) if y < @cols
+    fill(x, y-1, existing, replacement) if y > 0
   end
 
   def draw_vertical_segment(pixels_and_colour) # e.g. "2 3 4 W" where X = 2, Y1 = 3, Y2 = 4, colour = W

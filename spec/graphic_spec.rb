@@ -106,6 +106,58 @@ describe Graphic do
           ]
         )}
     end
+
+    context 'when given the argument "2 3 X" and called after creating an 5x6 image and the colour A scattered within' do
+      let(:graphic) { Graphic.new("5 6") }
+      before do
+        graphic.colour_pixel("3 2 A")
+        graphic.colour_pixel("4 2 A")
+        graphic.colour_pixel("3 3 A")
+        graphic.colour_pixel("1 4 A")
+        graphic.colour_pixel("2 4 A")
+        graphic.colour_pixel("4 4 A")
+        graphic.colour_pixel("5 4 A")
+        graphic.fill_region("2 3 X")
+      end
+
+      subject { graphic.grid }
+      it { should eql(
+          [%w(X X X X X),
+           %w(X X A A X),
+           %w(X X A X X),
+           %w(A A O A A),
+           %w(O O O O O),
+           %w(O O O O O)
+          ]
+        )}
+    end
+
+    context 'when given the argument "5 5 B" and called after creating an 10x10 image and the colour A forming a ring from (2, 2) to (9, 9)' do
+      let(:graphic) { Graphic.new("10 10") }
+      before do
+        graphic.draw_horizontal_segment("2 9 2 A")
+        graphic.draw_horizontal_segment("2 9 9 A")
+        graphic.draw_vertical_segment("2 2 9 A")
+        graphic.draw_vertical_segment("9 2 9 A")
+        graphic.fill_region("5 5 B")
+      end
+
+      subject { graphic.grid }
+      it { should eql(
+          [%w(O O O O O O O O O O),
+           %w(O A A A A A A A A O),
+           %w(O A B B B B B B A O),
+           %w(O A B B B B B B A O),
+           %w(O A B B B B B B A O),
+           %w(O A B B B B B B A O),
+           %w(O A B B B B B B A O),
+           %w(O A B B B B B B A O),
+           %w(O A A A A A A A A O),
+           %w(O O O O O O O O O O)
+          ]
+        )}
+    end
+
   end
 
   describe '#draw_vertical_segment' do
