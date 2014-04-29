@@ -62,7 +62,7 @@ class Graphic
 
     @grid[pixel_y][pixel_x] = main_colour
 
-    # All these needs an extra +1 because of the -1 involved in argument-splitting in draw_vertical_segment and draw_horizontal_segment
+    # All these need an extra +1 because of the -1 involved in argument-splitting in draw_vertical_segment and draw_horizontal_segment
     # right (x+1, y-1..y+1)
     draw_vertical_segment("#{pixel_x+2} #{pixel_y} #{pixel_y+2} #{secondary_colour}") if pixel_x < @cols - 1
     # left (x-1, y-1..y+1)
