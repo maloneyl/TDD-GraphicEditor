@@ -107,6 +107,17 @@ describe Graphic do
         )}
     end
 
+    context 'when given the argument "1 1 A" and called after creating an 5x5 image' do
+      let(:graphic) { Graphic.new("5 5") }
+
+      before do
+        graphic.fill_region("1 1 A")
+      end
+
+      subject { graphic.grid }
+      it { should eql([%w(A A A A A)] * 5)}
+    end
+
     context 'when given the argument "2 3 X" and called after creating an 5x6 image and the colour A scattered within' do
       let(:graphic) { Graphic.new("5 6") }
       before do
@@ -157,7 +168,6 @@ describe Graphic do
           ]
         )}
     end
-
   end
 
   describe '#draw_vertical_segment' do

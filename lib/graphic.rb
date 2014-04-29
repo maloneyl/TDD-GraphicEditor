@@ -40,14 +40,17 @@ class Graphic
   end
 
   def fill(x, y, existing_colour, replacement_colour)
+    # boundary checks need to happen upfront
+    return if x < 0 || x > @cols - 1
+    return if y < 0 || y > @rows - 1
     return if @grid[y][x] != existing_colour
     return if @grid[y][x] == replacement_colour
 
     @grid[y][x] = replacement_colour
-    fill(x+1, y, existing_colour, replacement_colour) if x < @rows
-    fill(x-1, y, existing_colour, replacement_colour) if x > 0
-    fill(x, y+1, existing_colour, replacement_colour) if y < @cols
-    fill(x, y-1, existing_colour, replacement_colour) if y > 0
+    fill(x+1, y, existing_colour, replacement_colour)
+    fill(x-1, y, existing_colour, replacement_colour)
+    fill(x, y+1, existing_colour, replacement_colour)
+    fill(x, y-1, existing_colour, replacement_colour)
   end
 
   def draw_vertical_segment(pixels_and_colour) # e.g. "2 3 4 W" where X = 2, Y1 = 3, Y2 = 4, colour = W
