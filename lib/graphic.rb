@@ -53,6 +53,26 @@ class Graphic
     fill(x, y-1, existing_colour, replacement_colour)
   end
 
+  def radial_fill(pixels_and_colours)
+    pixels_and_colours = pixels_and_colours.split(" ")
+    pixel_x = pixels_and_colours[0].to_i - 1
+    pixel_y = pixels_and_colours[1].to_i - 1
+    main_colour = pixels_and_colours[2]
+    secondary_colour = pixels_and_colours[3]
+
+    @grid[pixel_y][pixel_x] = main_colour
+
+    # All these needs an extra +1 because of the -1 involved in argument-splitting in draw_vertical_segment and draw_horizontal_segment
+    # right (x+1, y-1..y+1)
+    draw_vertical_segment("#{pixel_x+2} #{pixel_y} #{pixel_y+2} #{secondary_colour}") if pixel_x < @cols - 1
+    # left (x-1, y-1..y+1)
+    draw_vertical_segment("#{pixel_x} #{pixel_y} #{pixel_y+2} #{secondary_colour}") if pixel_x > 0
+    # top (x-1..x+1, y-1)
+    draw_horizontal_segment("#{pixel_x} #{pixel_x+2} #{pixel_y} #{secondary_colour}") if pixel_y > 0
+    # bottom (x-1..x+1, y+1)
+    draw_horizontal_segment("#{pixel_x} #{pixel_x+2} #{pixel_y+2} #{secondary_colour}") if pixel_y < @rows - 1
+  end
+
   def draw_vertical_segment(pixels_and_colour) # e.g. "2 3 4 W" where X = 2, Y1 = 3, Y2 = 4, colour = W
     pixels_and_colour = pixels_and_colour.split(" ")
     pixel_x = pixels_and_colour[0].to_i - 1

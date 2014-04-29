@@ -170,6 +170,47 @@ describe Graphic do
     end
   end
 
+  describe '#radial_fill' do # 'R 3 3 A B'
+    context 'when given the argument "3 3 A B" and called after creating an 5x6 image' do
+      let(:graphic) { Graphic.new("5 6") }
+
+      before do
+        graphic.radial_fill("3 3 A B")
+      end
+
+      subject { graphic.grid }
+      it { should eql(
+          [%w(O O O O O),
+           %w(O B B B O),
+           %w(O B A B O),
+           %w(O B B B O),
+           %w(O O O O O),
+           %w(O O O O O)
+          ]
+        )}
+    end
+
+    context 'when given the argument "1 1 A B" and called after creating an 5x7 image' do
+      let(:graphic) { Graphic.new("5 7") }
+
+      before do
+        graphic.radial_fill("1 1 A B")
+      end
+
+      subject { graphic.grid }
+      it { should eql(
+          [%w(A B O O O),
+           %w(B B O O O),
+           %w(O O O O O),
+           %w(O O O O O),
+           %w(O O O O O),
+           %w(O O O O O),
+           %w(O O O O O)
+          ]
+        )}
+    end
+  end
+
   describe '#draw_vertical_segment' do
     let(:graphic) { Graphic.new("5 6") }
     before do

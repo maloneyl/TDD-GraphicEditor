@@ -26,6 +26,8 @@ while input != 'X' do
     graphic.show_current
   when 'F'
     graphic.fill_region(args)
+  when 'R'
+    graphic.radial_fill(args)
   when 'V'
     graphic.draw_vertical_segment(args)
   when 'H'
